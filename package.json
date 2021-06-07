@@ -2,7 +2,7 @@
   "name": "bazaar",
   "version": "1.0.0",
   "description": "bazaar",
-  "main": "index.js",
+  "main": "router.js",
   "scripts": {
     "server": "nodemon run index.js"
   },
