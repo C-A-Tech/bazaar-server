@@ -1,0 +1,26 @@
+{
+  "name": "bazaar",
+  "version": "1.0.0",
+  "description": "bazaar",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon run index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C-A-Tech/Bazaar.git"
+  },
+  "keywords": [
+    "bazaar"
+  ],
+  "author": "team-bazaar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/C-A-Tech/Bazaar/issues"
+  },
+  "homepage": "https://github.com/C-A-Tech/Bazaar#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}
