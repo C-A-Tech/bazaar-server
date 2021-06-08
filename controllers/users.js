@@ -42,4 +42,9 @@ router.post(
 	}
 );
 
+router.get('/login', async (req, res) => {
+	const user = await User.findOne({ email: req.body.email })
+	res.json(user)
+})
+
 module.exports = router;
