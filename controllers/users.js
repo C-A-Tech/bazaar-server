@@ -44,7 +44,12 @@ router.post(
 
 router.get('/login', async (req, res) => {
 	const user = await User.findOne({ email: req.body.email })
-	res.json(user)
+	// validate the password of the account against the given password.
+	if(user && bcrypt.compareSync(req.body.password, user.password)) {
+		res.json(user)
+	} else {
+		res.status(400).json({msg: "Invalid email or Password"})
+	}
 })
 
 module.exports = router;
