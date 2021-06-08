@@ -10,16 +10,13 @@ const User = require('../models/User');
 
 router.post('/signup', (req, res) => {
   console.log(req.body)
-  // const { name } = req.body;
-  // console.log(name)
 
 
 
 
 
 
-
-	// res.send(req.body.json());
+	res.send('hello');
 });
 
 module.exports = router;
