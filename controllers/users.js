@@ -8,15 +8,22 @@ const { check, validationResult } = require('express-validator/check');
 
 const User = require('../models/User');
 
-router.post('/signup', (req, res) => {
-  console.log(req.body)
+router.post(
+  '/signup', 
+  (req, res) => {
+	const { name, email, password, dob } = req.body;
+
+	user = new User({
+		name,
+		email,
+		password,
+    dob
+	});
 
 
+  user.save();
 
-
-
-
-	res.send('hello');
+	res.send({msg: 'user has been saved successfully'});
 });
 
 module.exports = router;
