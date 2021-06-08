@@ -10,7 +10,7 @@ const User = require('../models/User');
 
 router.post(
   '/signup', 
-  (req, res) => {
+  async(req, res) => {
 	const { name, email, password, dob } = req.body;
 
 	user = new User({
@@ -20,8 +20,12 @@ router.post(
     dob
 	});
 
+  const salt = await bcrypt.genSalt(10)
+  user.password = await bcrypt.hash(password, salt)
 
-  user.save();
+  await user.save();
+
+
 
 	res.send({msg: 'user has been saved successfully'});
 });
