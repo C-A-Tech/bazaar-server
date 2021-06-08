@@ -4,7 +4,7 @@
   "description": "bazaar",
   "main": "router.js",
   "scripts": {
-    "server": "nodemon run index.js"
+    "server": "nodemon run router.js"
   },
   "repository": {
     "type": "git",
