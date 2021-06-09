@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+
 const Section = require('../models/Section');
 
-router.get('/', (req, res) => {
-  res.send("sections page")
+router.get('/', async (req, res) => {
+  let sections = await Section.find()
+  res.json(sections)
 })
 
 router.post('/', async (req, res) => {
