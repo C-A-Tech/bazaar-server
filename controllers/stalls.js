@@ -16,7 +16,7 @@ router.post('/create', async (req, res) => {
     await stall.save()
     res.json({msg: "Stall created"})
   } catch(err) {
-    res.send(err)
+    res.status(400).json({ msg: `${err.keyValue.name} already exists` });
   }
 })
 
