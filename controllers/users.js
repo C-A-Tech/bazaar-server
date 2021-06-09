@@ -44,14 +44,14 @@ router.post(
 	}
 );
 
-router.get('/login', async (req, res) => {
-	const user = await User.findOne({ email: req.body.email })
+router.post('/login', async (req, res) => {
+	const user = await User.findOne({ email: req.body.email });
 	// validate the password of the account against the given password.
-	if(user && bcrypt.compareSync(req.body.password, user.password)) {
-		res.json(user)
+	if (user && bcrypt.compareSync(req.body.password, user.password)) {
+		res.json(user);
 	} else {
-		res.status(400).json({msg: "Invalid email or Password"})
+		res.status(400).json({ msg: 'Invalid email or Password' });
 	}
-})
+});
 
 module.exports = router;
