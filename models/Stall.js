@@ -9,7 +9,11 @@ const StallSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
+  },
+  section: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Section"
   }
 })
 
-module.exports = stall = mongoose.model('stall', StallSchema)
+module.exports = stall = mongoose.model('Stall', StallSchema)

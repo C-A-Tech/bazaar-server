@@ -3,14 +3,16 @@ const router = express.Router();
 
 const Stall = require('../models/Stall');
 
-router.get('/', (req, res) => {
-  res.send("stalls page")
+router.get('/', async (req, res) => {
+  let stalls = await Stall.find()
+  res.json(stalls)
 })
 
 router.post('/create', async (req, res) => {
   const stall = new Stall({
     name: req.body.name,
-    user: req.body.user
+    user: req.body.user,
+    section: req.body.section
   })
   try {
     await stall.save()
