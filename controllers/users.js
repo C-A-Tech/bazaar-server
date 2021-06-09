@@ -11,7 +11,8 @@ const User = require('../models/User');
 router.post(
 	'/signup',
 	[
-		check('name', 'Please enter your name').not().isEmpty(),
+		check('first_name', 'Please enter your first name').not().isEmpty(),
+		check('last_name', 'Please enter your last name').not().isEmpty(),
 		check('email', 'Please enter your email').isEmail(),
 		check('password', 'Please enter a password').not().isEmpty(),
 		check('dob', 'Please enter your date of birth').not().isEmpty()
@@ -22,9 +23,10 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.status(400).json({ msg: errors.array() });
 		}
-		const { name, email, password, dob } = req.body;
+		const { first_name, last_name, email, password, dob } = req.body;
 		user = new User({
-			name,
+			first_name,
+			last_name,
 			email,
 			password,
 			dob
