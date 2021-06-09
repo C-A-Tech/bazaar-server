@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { check, validationResult } = require('express-validator/check');
 
 
 const Section = require('../models/Section');
@@ -9,7 +10,15 @@ router.get('/', async (req, res) => {
   res.json(sections)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', [
+  check('title', 'title required').not().isEmpty()
+],
+
+async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ msg: errors.array() });
+  }
   const section = new Section({
     title: req.body.title
   })
