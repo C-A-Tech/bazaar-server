@@ -9,7 +9,7 @@ const { check, validationResult } = require('express-validator/check');
 const User = require('../models/User');
 
 router.get('/', async (req, res) => {
-	let users = await User.find().select("-password");
+	let users = await User.find().select(["-password", "-dob"]);
 	res.json(users);
 });
 
