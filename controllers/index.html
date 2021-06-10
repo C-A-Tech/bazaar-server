@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+  <h1>Welcome to bazaar api</h1>
+  <p>Below are some notes on endpoints and routes</p>
+  <br>
+  <br>
+  <br>
+
+
+  <body>
+    <h2>Users routes</h2>
+
+    <h4>GET users - list all users</h4>
+    <a href="https://bazaar-server.herokuapp.com/api/users">https://bazaar-server.herokuapp.com/api/users</a>
+
+    <h4>POST users/signup - create new user</h4>
+    <a href="https://bazaar-server.herokuapp.com/api/users/signup">https://bazaar-server.herokuapp.com/api/users/singup</a>
+    <p>Following are required</p>
+    <ol >
+      <li>first_name</li>
+      <li>last_name</li>
+      <li>email</li>
+      <li>password</li>
+      <li>dob</li>
+    </ol>
+
+    <h4>POST users/login - authenticates and returns a user object</h4>
+    <a href="https://bazaar-server.herokuapp.com/api/users/login">https://bazaar-server.herokuapp.com/api/users/login</a>
+    <p>Following are required</p>
+    <ol >
+      <li>email</li>
+      <li>password</li>
+    </ol>
+    <br>
+    <br>
+    <br>
+
+
+    <h2>Sections routes</h2>
+      <h4>GET sections - list all sections</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/sections">https://bazaar-server.herokuapp.com/api/sections</a>
+
+      <h4>POST sections/create - create new section</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/sections/create">https://bazaar-server.herokuapp.com/api/sections/create</a>
+      <p>Following are required</p>
+      <ol >
+        <li>title</li>
+      </ol>
+      <br>
+      <br>
+      <br>
+
+    <h2>Stalls routes</h2>
+      <h4>GET stalls - list all stalls</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/stalls">https://bazaar-server.herokuapp.com/api/stalls</a>
+
+      <h4>POST sections/create - create new section</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/stalls/create">https://bazaar-server.herokuapp.com/api/stalls/create</a>
+      <p>Following are required</p>
+      <ol >
+        <li>name (name of the stall)</li>
+        <li>user (add user id here from signed in user object)</li>
+        <li>section (add section id here from current section object)</li>
+      </ol>
+
+    <h4>GET stalls/user/:user_id - list all stalls by user</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/stalls/user/:user_id">https://bazaar-server.herokuapp.com/api/stalls/user/:user_id</a>
+      <p>replace the :user_id in the link with current user object id</p>
+
+
+    <h4>GET stalls/section/:section_id - list all stalls by section</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/stalls/section/:section_id">https://bazaar-server.herokuapp.com/api/stalls/section/:section_id</a>
+      <p>replace the :section_id in the link with current section object id</p>
+  </body>
+
+
+
+
+  </body>
+</html>

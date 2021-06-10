@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post(
-	'/',
+	'/create',
 	[check('title', 'title required').not().isEmpty()],
 
 	async (req, res) => {
