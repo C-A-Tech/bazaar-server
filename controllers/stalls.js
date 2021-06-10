@@ -36,4 +36,23 @@ router.post(
 	}
 );
 
+router.get(
+  '/:user_id',
+  async ({ params: { user_id } }, res) => {
+    try {
+      const stalls = await Stall.find({
+        user: user_id
+      })
+      if (!stalls.length){
+				return res.json({ msg: 'No stalls'})
+			}
+
+      return res.json(stalls);
+    } catch (err) {
+      console.error(err.message);
+      return res.status(500).json({ msg: 'Server error' });
+    }
+	}
+	);
+
 module.exports = router;
