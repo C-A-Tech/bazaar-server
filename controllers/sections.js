@@ -16,7 +16,7 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.status(400).json({ msg: errors.array() });
+			return res.json({ msg: errors.array() }).status(400);
 		}
 		const section = new Section({
 			title: req.body.title
@@ -25,7 +25,7 @@ router.post(
 			await section.save();
 			res.json({ msg: 'section created' });
 		} catch (err) {
-			res.status(400).json({ msg: `${err.keyValue.title} already exists` });
+			res.json({ msg: `${err.keyValue.title} already exists` }).status(400);
 		}
 	}
 );

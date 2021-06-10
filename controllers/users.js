@@ -14,14 +14,17 @@ router.post(
 		check('first_name', 'Please enter your first name').not().isEmpty(),
 		check('last_name', 'Please enter your last name').not().isEmpty(),
 		check('email', 'Please enter your email').isEmail(),
-		check('password', 'Please enter a password').not().isEmpty(),
+		check(
+			'password',
+			'Please enter a password with 6 or more characters'
+		).isLength({ min: 6 }),
 		check('dob', 'Please enter your date of birth').not().isEmpty()
 	],
 
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.status(400).json({ msg: errors.array() });
+			return res.json({ msg: errors.array() }).status(400);
 		}
 		const { first_name, last_name, email, password, dob } = req.body;
 		user = new User({
@@ -39,7 +42,9 @@ router.post(
 			await user.save();
 			res.send({ msg: 'user has been saved successfully' });
 		} catch (err) {
-			res.json({ msg: `${err.keyValue.email} already exists` });
+			return res
+				.json({ msg: `${err.keyValue.email} already exists` })
+				.status(400);
 		}
 	}
 );
@@ -50,7 +55,7 @@ router.post('/login', async (req, res) => {
 	if (user && bcrypt.compareSync(req.body.password, user.password)) {
 		res.json(user);
 	} else {
-		res.status(400).json({ msg: 'Invalid email or Password' });
+		res.json({ msg: 'Invalid email or Password' }).status(400);
 	}
 });
 
