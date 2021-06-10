@@ -20,7 +20,7 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.status(400).json({ msg: errors.array() });
+			return res.json({ msg: errors.array() }).status(400);
 		}
 		const stall = new Stall({
 			name: req.body.name,
@@ -31,7 +31,7 @@ router.post(
 			await stall.save();
 			res.json({ msg: 'Stall created' });
 		} catch (err) {
-			res.status(400).json({ msg: `${err.keyValue.name} already exists` });
+			res.json({ msg: `${err.keyValue.name} already exists` }.status(400));
 		}
 	}
 );
