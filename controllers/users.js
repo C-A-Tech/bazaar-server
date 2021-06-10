@@ -8,6 +8,12 @@ const { check, validationResult } = require('express-validator/check');
 
 const User = require('../models/User');
 
+router.get('/', async (req, res) => {
+	let users = await User.find();
+	res.json(users);
+});
+
+
 router.post(
 	'/signup',
 	[
