@@ -3,6 +3,10 @@ const connectDB = require('./config/db');
 var cors = require('cors');
 const path = require('path');
 
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+const crypto = require('crypto');
 
 //connect database
 connectDB();
