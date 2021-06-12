@@ -1,0 +1,3 @@
+{
+  "mongoURI": "mongodb+srv://bazaar-user:bm654321@bazaar.bxavo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+}
