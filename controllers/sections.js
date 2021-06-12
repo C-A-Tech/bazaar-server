@@ -33,4 +33,18 @@ router.post(
 	}
 );
 
+router.get('/title/:section_title', async ({ params: {section_title} }, res) => {
+  try {
+		const section = await Section.find({
+		  title: section_title
+		})
+		if (!section.length){
+			return res.json({ msg: 'No stalls for this section' }).status(400)
+		}
+		return res.json(section)
+	} catch (err) {
+		return res.status(500).json({ msg: 'Server error' });
+	}
+})
+
 module.exports = router;
