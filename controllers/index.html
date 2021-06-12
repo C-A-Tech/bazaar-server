@@ -24,6 +24,7 @@
       <li>email</li>
       <li>password</li>
       <li>dob</li>
+      <li>image (as a file)</li>
     </ol>
 
     <h4>POST users/login - authenticates and returns a user object</h4>
@@ -32,6 +33,7 @@
     <ol >
       <li>email</li>
       <li>password</li>
+      <li>image (as a file and optional)</li>
     </ol>
     <br>
     <br>
@@ -47,6 +49,7 @@
       <p>Following are required</p>
       <ol >
         <li>title</li>
+        <li>image(as a file)</li>
       </ol>
       <br>
       <br>
@@ -63,6 +66,7 @@
         <li>name (name of the stall)</li>
         <li>user (add user id here from signed in user object)</li>
         <li>section (add section id here from current section object)</li>
+        <li>image (as a file)</li>
       </ol>
 
     <h4>GET stalls/user/:user_id - list all stalls by user</h4>
@@ -91,6 +95,7 @@
         <li>user (add user id here from signed in user object)</li>
         <li>section (add section id here from current section object)</li>
         <li>stall (add stall id here from current stall object)</li>
+        <li>image (as a file)</li>
       </ol>
 
     <h4>GET products/user/:user_id - list all products by user</h4>
@@ -106,6 +111,11 @@
     <h4>GET products/stall/:stall_id - list all products by stall</h4>
       <a href="https://bazaar-server.herokuapp.com/api/products/stall/:stall_id">https://bazaar-server.herokuapp.com/api/products/stall/:stall_id</a>
       <p>replace the :section_id in the link with current section object id</p>
+
+
+      <h4>GET products/stall/:stall_id - list all products by stall</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/sections/title/:section_title">https://bazaar-server.herokuapp.com/api/sections/title/:section_title</a>
+      <p>replace the :section_title in the link with current section title</p>  
 
     <br>
     <br>

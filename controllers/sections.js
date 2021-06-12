@@ -39,7 +39,7 @@ router.get('/title/:section_title', async ({ params: {section_title} }, res) => 
 		  title: section_title
 		})
 		if (!section.length){
-			return res.json({ msg: 'No stalls for this section' }).status(400)
+			return res.json({ msg: 'No sections by this name' }).status(400)
 		}
 		return res.json(section)
 	} catch (err) {
