@@ -3,6 +3,10 @@ const connectDB = require('./config/db');
 var cors = require('cors');
 const path = require('path');
 
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
+const crypto = require('crypto');
 
 //connect database
 connectDB();
@@ -21,3 +25,4 @@ app.use('/', require('./controllers/index'));
 app.use('/api/users', require('./controllers/users'));
 app.use('/api/stalls', require('./controllers/stalls'));
 app.use('/api/sections', require('./controllers/sections'));
+app.use('/api/products', require('./controllers/products'));
