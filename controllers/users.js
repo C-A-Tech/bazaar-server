@@ -5,17 +5,18 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const { check, validationResult } = require('express-validator/check');
+const parser = require('../middleware/cloudinary.config');
 
 const User = require('../models/User');
 
 router.get('/', async (req, res) => {
-	let users = await User.find().select(["-password", "-dob"]);
+	let users = await User.find().select(['-password', '-dob']);
 	res.json(users);
 });
 
-
 router.post(
 	'/signup',
+	parser.single('image'),
 	[
 		check('first_name', 'Please enter your first name').not().isEmpty(),
 		check('last_name', 'Please enter your last name').not().isEmpty(),
@@ -33,12 +34,15 @@ router.post(
 			return res.json({ msg: errors.array() }).status(400);
 		}
 		const { first_name, last_name, email, password, dob } = req.body;
+		
+		const image = req.file ? req.file.path : "" 
 		user = new User({
 			first_name,
 			last_name,
 			email,
 			password,
-			dob
+			dob,
+			image
 		});
 
 		const salt = await bcrypt.genSalt(10);

@@ -21,6 +21,9 @@ const UserSchema = new mongoose.Schema({
 	dob: {
 		type: String,
 		require: true
+	},
+	image: {
+		type: String
 	}
 });
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
+const parser = require('../middleware/cloudinary.config');
 
 const Product = require('../models/Product');
 
@@ -11,9 +12,10 @@ router.get('/', async (req, res) => {
 
 router.post(
 	'/create',
+	parser.single('image'),
 	[
 		check('name', 'name required').not().isEmpty(),
-		check('description', 'description required').not().isEmpty(),
+		// check('description', 'description required').not().isEmpty(),
 		check('user', 'user id required').not().isEmpty(),
 		check('section', 'section id required').not().isEmpty(),
 		check('stall', 'stall id required').not().isEmpty()
@@ -24,18 +26,22 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.json({ msg: errors.array() }).status(400);
 		}
+
+		const image = req.file.path
+
 		const product = new Product({
 			name: req.body.name,
 			description: req.body.description,
 			user: req.body.user,
 			section: req.body.section,
-			stall: req.body.stall
+			stall: req.body.stall,
+			image
 		});
 		try {
 			await product.save();
 			res.json({ msg: 'product created' });
 		} catch (err) {
-			res.json({ msg: `${err.keyValue.name} already exists` }.status(400));
+			res.status(400).json({ msg: `${err.keyValue.name} already exists` });
 		}
 	}
 );

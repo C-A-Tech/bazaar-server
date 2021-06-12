@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
+const parser = require('../middleware/cloudinary.config');
 
 const Section = require('../models/Section');
 
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
 
 router.post(
 	'/create',
+	parser.single('image'),
 	[check('title', 'title required').not().isEmpty()],
 
 	async (req, res) => {
@@ -19,7 +21,8 @@ router.post(
 			return res.json({ msg: errors.array() }).status(400);
 		}
 		const section = new Section({
-			title: req.body.title
+			title: req.body.title,
+			image: req.file.path
 		});
 		try {
 			await section.save();

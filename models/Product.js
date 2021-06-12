@@ -3,13 +3,11 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		required: true,
-		unique: true
+		required: true
 	},
 	description: {
 		type: String,
-		required: true,
-		unique: true
+		required: true
 	},
 	user: {
 		type: mongoose.Schema.Types.ObjectId,
@@ -22,6 +20,10 @@ const ProductSchema = new mongoose.Schema({
 	stall: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Stall'
+	},
+	image: {
+		type: String,
+		required: true
 	}
 });
 
