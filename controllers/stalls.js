@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
+const parser = require('../middleware/cloudinary.config');
 
 const Stall = require('../models/Stall');
 
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
 
 router.post(
 	'/create',
+	parser.single('image'),
 	[
 		check('name', 'name required').not().isEmpty(),
 		check('user', 'user id required').not().isEmpty(),
@@ -22,10 +24,14 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.json({ msg: errors.array() }).status(400);
 		}
+		
+		const image = req.file.path
+
 		const stall = new Stall({
 			name: req.body.name,
 			user: req.body.user,
-			section: req.body.section
+			section: req.body.section,
+			image
 		});
 		try {
 			await stall.save();
