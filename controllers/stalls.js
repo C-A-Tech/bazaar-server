@@ -37,7 +37,7 @@ router.post(
 			await stall.save();
 			res.json({ msg: 'Stall created' });
 		} catch (err) {
-			res.json({ msg: `${err.keyValue.name} already exists` }.status(400));
+			res.status(400).json({ msg: `${err.keyValue.name} already exists` });
 		}
 	}
 );

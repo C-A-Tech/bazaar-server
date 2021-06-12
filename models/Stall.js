@@ -15,7 +15,8 @@ const StallSchema = new mongoose.Schema({
 		ref: 'Section'
 	},
 	image: {
-		type: String
+		type: String,
+		required: true
 	}
 });
 
