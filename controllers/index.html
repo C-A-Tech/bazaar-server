@@ -16,7 +16,7 @@
     <a href="https://bazaar-server.herokuapp.com/api/users">https://bazaar-server.herokuapp.com/api/users</a>
 
     <h4>POST users/signup - create new user</h4>
-    <a href="https://bazaar-server.herokuapp.com/api/users/signup">https://bazaar-server.herokuapp.com/api/users/singup</a>
+    <a href="https://bazaar-server.herokuapp.com/api/users/signup">https://bazaar-server.herokuapp.com/api/users/signup</a>
     <p>Following are required</p>
     <ol >
       <li>first_name</li>
@@ -56,7 +56,7 @@
       <h4>GET stalls - list all stalls</h4>
       <a href="https://bazaar-server.herokuapp.com/api/stalls">https://bazaar-server.herokuapp.com/api/stalls</a>
 
-      <h4>POST sections/create - create new section</h4>
+      <h4>POST stalls/create - create new stall</h4>
       <a href="https://bazaar-server.herokuapp.com/api/stalls/create">https://bazaar-server.herokuapp.com/api/stalls/create</a>
       <p>Following are required</p>
       <ol >
@@ -73,6 +73,50 @@
     <h4>GET stalls/section/:section_id - list all stalls by section</h4>
       <a href="https://bazaar-server.herokuapp.com/api/stalls/section/:section_id">https://bazaar-server.herokuapp.com/api/stalls/section/:section_id</a>
       <p>replace the :section_id in the link with current section object id</p>
+
+    <br>
+    <br>
+    <br>
+
+    <h2>Products routes</h2>
+      <h4>GET products - list all products</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/stalls">https://bazaar-server.herokuapp.com/api/products</a>
+
+      <h4>POST products/create - create new products</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/products/create">https://bazaar-server.herokuapp.com/api/products/create</a>
+      <p>Following are required</p>
+      <ol >
+        <li>name (name of the product)</li>
+        <li>description (name of the product)</li>
+        <li>user (add user id here from signed in user object)</li>
+        <li>section (add section id here from current section object)</li>
+        <li>stall (add stall id here from current stall object)</li>
+      </ol>
+
+    <h4>GET products/user/:user_id - list all products by user</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/products/user/:user_id">https://bazaar-server.herokuapp.com/api/products/user/:user_id</a>
+      <p>replace the :user_id in the link with current user object id</p>
+
+
+    <h4>GET products/section/:section_id - list all products by section</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/products/section/:section_id">https://bazaar-server.herokuapp.com/api/products/section/:section_id</a>
+      <p>replace the :section_id in the link with current section object id</p>
+
+
+    <h4>GET products/stall/:stall_id - list all products by stall</h4>
+      <a href="https://bazaar-server.herokuapp.com/api/products/stall/:stall_id">https://bazaar-server.herokuapp.com/api/products/stall/:stall_id</a>
+      <p>replace the :section_id in the link with current section object id</p>
+
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+
+
   </body>
 
 
