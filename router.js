@@ -27,4 +27,3 @@ app.use('/api/users', require('./controllers/users'));
 app.use('/api/stalls', require('./controllers/stalls'));
 app.use('/api/sections', require('./controllers/sections'));
 app.use('/api/products', require('./controllers/products'));
-app.use('/api/uploadImage', require('./controllers/uploadImage'));
