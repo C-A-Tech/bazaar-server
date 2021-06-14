@@ -35,13 +35,15 @@ router.post(
 			user: req.body.user,
 			section: req.body.section,
 			stall: req.body.stall,
+			price: req.body.price,
 			image
 		});
 		try {
 			await product.save();
 			res.json({ msg: 'product created' });
 		} catch (err) {
-			res.status(400).json({ msg: `${err.keyValue.name} already exists` });
+			res.json(err)
+			//res.status(400).json({ msg: `${err.keyValue.name} already exists` });
 		}
 	}
 );
