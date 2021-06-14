@@ -34,8 +34,8 @@ router.post(
 			return res.json({ msg: errors.array() }).status(400);
 		}
 		const { first_name, last_name, email, password, dob } = req.body;
-		
-		const image = req.file ? req.file.path : "" 
+
+		const image = req.file ? req.file.path : '';
 		user = new User({
 			first_name,
 			last_name,
@@ -80,6 +80,34 @@ router.delete('/delete/:id', async (req, res) => {
 		await user.remove();
 
 		res.json({ msg: 'user removed' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+	}
+});
+
+router.put('/update/:id', parser.single('image'), async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id);
+
+		if (!user) {
+			return res.status(404).json({ msg: 'user not found' });
+		}
+
+		const first_name = req.body.first_name || user.first_name;
+		const last_name = req.body.last_name || user.last_name;
+		const dob = req.body.dob || user.dob;
+		const image = req.file ? req.file.path : user.image;
+
+		await User.findByIdAndUpdate(req.params.id, {
+			first_name: first_name,
+			last_name: last_name,
+			dob: dob,
+			image: image
+		});
+
+		res.json({ msg: 'User updated' });
 	} catch (err) {
 		console.error(err.message);
 
