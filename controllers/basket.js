@@ -4,6 +4,11 @@ const { check, validationResult } = require('express-validator/check');
 
 const Basket = require('../models/Basket');
 
+const calculateTotal = (products) => {
+  let total = 0
+  products.forEach(product => total += product.quantity * product.price)
+  return total
+}
 
 router.post("/add", async (req, res) => {
   const { productId, quantity, name, user, price } = req.body;
@@ -18,16 +23,20 @@ router.post("/add", async (req, res) => {
         let productItem = basket.products[itemIndex];
         productItem.quantity = quantity;
         basket.products[itemIndex] = productItem;
+        basket.total = calculateTotal(basket.products)
       } else {
-        basket.products.push({ productId, quantity, name, price });
+        let total = calculateTotal(basket.products)
+        basket.products.push({ productId, quantity, name, price, total });
       }
       basket = await basket.save();
       return res.json(basket);
     } else {
       //no basket for user, create new basket
+      let total = calculateTotal(basket.products)
       const newBasket = await Basket.create({
         user,
-        products: [{ productId, quantity, name, price }]
+        products: [{ productId, quantity, name, price }],
+        total
       });
 
       return res.json(newBasket);

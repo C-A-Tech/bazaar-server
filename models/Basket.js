@@ -14,6 +14,10 @@ const BasketSchema = new mongoose.Schema(
         price: Number
       }
     ],
+    total: {
+      type: Number,
+      default: 0
+    },
     active: {
       type: Boolean,
       default: true
