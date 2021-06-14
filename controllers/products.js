@@ -27,7 +27,7 @@ router.post(
 			return res.json({ msg: errors.array() }).status(400);
 		}
 
-		const image = req.file.path
+		const image = req.file.path;
 
 		const product = new Product({
 			name: req.body.name,
@@ -91,6 +91,52 @@ router.get('/stall/:stall_id', async ({ params: { stall_id } }, res) => {
 	} catch (err) {
 		console.error(err.message);
 		return res.status(500).json({ msg: 'Server error' });
+	}
+});
+
+router.delete('/delete/:id', async (req, res) => {
+	try {
+		const product = await Product.findById(req.params.id);
+
+		if (!product) {
+			return res.status(404).json({ msg: 'product not found' });
+		}
+
+		await product.remove();
+
+		res.json({ msg: 'Product removed' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+	}
+});
+
+router.put('/update/:id', parser.single('image'), async (req, res) => {
+	try {
+		const product = await Product.findById(req.params.id);
+
+		if (!product) {
+			return res.status(404).json({ msg: 'product not found' });
+		}
+
+		const name = req.body.name || product.name;
+		const description = req.body.description || product.description;
+		const price = req.body.price || product.price;
+		const image = req.file ? req.file.path : product.image;
+
+		await Product.findByIdAndUpdate(req.params.id, {
+			name: name,
+			description: description,
+			price: price,
+			image: image
+		});
+
+		res.json({ msg: 'product updated' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
 	}
 });
 

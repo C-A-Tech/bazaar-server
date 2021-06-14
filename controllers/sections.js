@@ -33,18 +33,63 @@ router.post(
 	}
 );
 
-router.get('/title/:section_title', async ({ params: {section_title} }, res) => {
-  try {
-		const section = await Section.find({
-		  title: section_title
-		})
-		if (!section.length){
-			return res.json({ msg: 'No sections by this name' }).status(400)
+router.get(
+	'/title/:section_title',
+	async ({ params: { section_title } }, res) => {
+		try {
+			const section = await Section.find({
+				title: section_title
+			});
+			if (!section.length) {
+				return res.json({ msg: 'No sections by this name' }).status(400);
+			}
+			return res.json(section);
+		} catch (err) {
+			return res.status(500).json({ msg: 'Server error' });
 		}
-		return res.json(section)
-	} catch (err) {
-		return res.status(500).json({ msg: 'Server error' });
 	}
-})
+);
+
+router.delete('/delete/:id', async (req, res) => {
+	try {
+		const section = await Section.findById(req.params.id);
+
+		if (!section) {
+			return res.status(404).json({ msg: 'Section not found' });
+		}
+
+		await section.remove();
+
+		res.json({ msg: 'Section removed' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+	}
+});
+
+router.put('/update/:id', parser.single('image'), async (req, res) => {
+	try {
+		const section = await Section.findById(req.params.id);
+
+		if (!section) {
+			return res.status(404).json({ msg: 'section not found' });
+		}
+
+		const title = req.body.title || section.title;
+		const image = req.file ? req.file.path : section.image;
+
+		await Section.findByIdAndUpdate(req.params.id, {
+			title: title,
+			image: image
+		});
+
+		res.json({ msg: 'Section updated' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+	}
+});
 
 module.exports = router;
