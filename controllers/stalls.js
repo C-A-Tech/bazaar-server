@@ -101,17 +101,14 @@ router.put('/update/:id', parser.single('image'), async (req, res) => {
 		}
 
 		const name = req.body.name || stall.name
-		const image = req.file.path || stall.image
+		const image = req.file ? req.file.path : stall.image
 
 		await Stall.findByIdAndUpdate(req.params.id, {
 			name: name,
 			image: image
 		});
 
-		const stallUpdated = await Stall.findById(req.params.id);
-		console.log(req.params.id);
-		res.json({ image: `${stallUpdated.image}`, name: `${stallUpdated.name}` });
-		// res.json({ msg: 'Stall updated' });
+		res.json({ msg: 'Stall updated' });
 	} catch (err) {
 		console.error(err.message);
 
