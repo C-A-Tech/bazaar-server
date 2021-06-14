@@ -35,6 +35,7 @@ router.post(
 			user: req.body.user,
 			section: req.body.section,
 			stall: req.body.stall,
+			price: req.body.price,
 			image
 		});
 		try {
