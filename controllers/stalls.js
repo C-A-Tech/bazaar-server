@@ -92,4 +92,31 @@ router.delete('/delete/:id', async (req, res) => {
 	}
 });
 
+router.put('/update/:id', parser.single('image'), async (req, res) => {
+	try {
+		const stall = await Stall.findById(req.params.id);
+
+		if (!stall) {
+			return res.status(404).json({ msg: 'stall not found' });
+		}
+
+		const name = req.body.name || stall.name
+		const image = req.file.path || stall.image
+
+		await Stall.findByIdAndUpdate(req.params.id, {
+			name: name,
+			image: image
+		});
+
+		const stallUpdated = await Stall.findById(req.params.id);
+		console.log(req.params.id);
+		res.json({ image: `${stallUpdated.image}`, name: `${stallUpdated.name}` });
+		// res.json({ msg: 'Stall updated' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+	}
+});
+
 module.exports = router;
