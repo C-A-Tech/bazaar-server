@@ -42,8 +42,7 @@ router.post(
 			await product.save();
 			res.json({ msg: 'product created' });
 		} catch (err) {
-			res.json(err)
-			//res.status(400).json({ msg: `${err.keyValue.name} already exists` });
+			res.status(400).json({ msg: `${err.keyValue.name} already exists` });
 		}
 	}
 );
