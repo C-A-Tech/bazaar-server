@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const BasketSchema = new mongoose.Schema(
   {
-    userId: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User"
     },
@@ -11,6 +11,7 @@ const BasketSchema = new mongoose.Schema(
         productId: String,
         quantity: Number,
         name: String,
+        price: Number
       }
     ],
     active: {

@@ -6,9 +6,9 @@ const Basket = require('../models/Basket');
 
 
 router.post("/add", async (req, res) => {
-  const { productId, quantity, name, userId } = req.body;
+  const { productId, quantity, name, user, price } = req.body;
   try {
-    let basket = await Basket.findOne({ userId });
+    let basket = await Basket.findOne({ user });
 
 
     if (basket) {
@@ -19,15 +19,15 @@ router.post("/add", async (req, res) => {
         productItem.quantity = quantity;
         basket.products[itemIndex] = productItem;
       } else {
-        basket.products.push({ productId, quantity, name });
+        basket.products.push({ productId, quantity, name, price });
       }
       basket = await basket.save();
       return res.json(basket);
     } else {
       //no basket for user, create new basket
       const newBasket = await Basket.create({
-        userId,
-        products: [{ productId, quantity, name }]
+        user,
+        products: [{ productId, quantity, name, price }]
       });
 
       return res.json(newBasket);
