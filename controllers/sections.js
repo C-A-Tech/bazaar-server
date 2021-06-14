@@ -68,4 +68,28 @@ router.delete('/delete/:id', async (req, res) => {
 	}
 });
 
+router.put('/update/:id', parser.single('image'), async (req, res) => {
+	try {
+		const section = await Section.findById(req.params.id);
+
+		if (!section) {
+			return res.status(404).json({ msg: 'section not found' });
+		}
+
+		const title = req.body.title || section.title;
+		const image = req.file ? req.file.path : section.image;
+
+		await Section.findByIdAndUpdate(req.params.id, {
+			title: title,
+			image: image
+		});
+
+		res.json({ msg: 'Section updated' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+	}
+});
+
 module.exports = router;
