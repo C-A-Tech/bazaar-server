@@ -21,6 +21,10 @@ const ProductSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Stall'
 	},
+	price: {
+		type: Number,
+		required: true
+	},
 	image: {
 		type: String,
 		required: true

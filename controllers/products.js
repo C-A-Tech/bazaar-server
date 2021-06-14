@@ -112,4 +112,32 @@ router.delete('/delete/:id', async (req, res) => {
 	}
 });
 
+router.put('/update/:id', parser.single('image'), async (req, res) => {
+	try {
+		const product = await Product.findById(req.params.id);
+
+		if (!product) {
+			return res.status(404).json({ msg: 'product not found' });
+		}
+
+		const name = req.body.name || product.name;
+		const description = req.body.description || product.description;
+		const price = req.body.price || product.price;
+		const image = req.file ? req.file.path : product.image;
+
+		await Product.findByIdAndUpdate(req.params.id, {
+			name: name,
+			description: description,
+			price: price,
+			image: image
+		});
+
+		res.json({ msg: 'product updated' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+	}
+});
+
 module.exports = router;
