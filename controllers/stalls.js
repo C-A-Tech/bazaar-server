@@ -24,8 +24,8 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.json({ msg: errors.array() }).status(400);
 		}
-		
-		const image = req.file.path
+
+		const image = req.file.path;
 
 		const stall = new Stall({
 			name: req.body.name,
@@ -42,43 +42,54 @@ router.post(
 	}
 );
 
-router.get(
-  '/user/:user_id',
-  async ({ params: { user_id } }, res) => {
-    try {
-      const stalls = await Stall.find({
-        user: user_id
-      })
-      if (!stalls.length){
-				return res.json({ msg: 'No stalls'})
-			}
-
-      return res.json(stalls);
-    } catch (err) {
-      console.error(err.message);
-      return res.status(500).json({ msg: 'Server error' });
-    }
-	}
-	);
-
-	router.get(
-		'/section/:section_id',
-		async ({ params: { section_id } }, res) => {
-			try {
-				const stalls = await Stall.find({
-					section: section_id
-				})
-				if (!stalls.length){
-					return res.json({ msg: 'No stalls for this section' })
-				}
-	
-				return res.json(stalls);
-			} catch (err) {
-				console.error(err.message);
-				return res.status(500).json({ msg: 'Server error' });
-			}
+router.get('/user/:user_id', async ({ params: { user_id } }, res) => {
+	try {
+		const stalls = await Stall.find({
+			user: user_id
+		});
+		if (!stalls.length) {
+			return res.json({ msg: 'No stalls' });
 		}
-		);
-	
+
+		return res.json(stalls);
+	} catch (err) {
+		console.error(err.message);
+		return res.status(500).json({ msg: 'Server error' });
+	}
+});
+
+router.get('/section/:section_id', async ({ params: { section_id } }, res) => {
+	try {
+		const stalls = await Stall.find({
+			section: section_id
+		});
+		if (!stalls.length) {
+			return res.json({ msg: 'No stalls for this section' });
+		}
+
+		return res.json(stalls);
+	} catch (err) {
+		console.error(err.message);
+		return res.status(500).json({ msg: 'Server error' });
+	}
+});
+
+router.delete('/delete/:id', async (req, res) => {
+	try {
+		const stall = await Stall.findById(req.params.id);
+
+		if (!stall) {
+			return res.status(404).json({ msg: 'stall not found' });
+		}
+
+		await stall.remove();
+
+		res.json({ msg: 'Stall removed' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+	}
+});
 
 module.exports = router;
