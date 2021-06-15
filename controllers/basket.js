@@ -75,4 +75,27 @@ router.delete('/delete/:id', async (req, res) => {
 		res.status(500).send('Server Error');
 	}
 });
+
+router.put('/removeItem', async (req, res) => {
+	try {
+    const { productId, user } = req.body;
+		const basket = await Basket.findOne({ user });
+    let itemIndex = basket.products.findIndex(p => p.productId == productId);
+    console.log(itemIndex)
+    if (itemIndex > -1) {
+      let product = basket.products[itemIndex]
+      basket.total -= product.price * product.quantity 
+      basket.products.splice(itemIndex, 1);
+      await basket.save();
+      res.json({ msg: 'item removed' });
+    } else {
+      res.json({ msg: "no such items" })
+    }
+		
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+  }
+});
 module.exports = router;
