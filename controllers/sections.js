@@ -18,7 +18,7 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.status(400).json({ msg: errors.array() });
+			return res.json({ msg: errors.array() });
 		}
 		const section = new Section({
 			title: req.body.title,
@@ -26,9 +26,9 @@ router.post(
 		});
 		try {
 			await section.save();
-			res.json({ msg: 'section created' });
+			return res.json({ msg: 'section created' });
 		} catch (err) {
-			res.status(400).json({ msg: 'This section already exists' });
+			return res.json({ msg: 'This section already exists' });
 		}
 	}
 );
@@ -41,7 +41,7 @@ router.get(
 				title: section_title
 			});
 			if (!section.length) {
-				return res.status(400).json({ msg: 'No sections by this name' });
+				return res.json({ msg: 'No sections by this name' });
 			}
 			return res.json(section);
 		} catch (err) {
@@ -55,7 +55,7 @@ router.delete('/delete/:id', async (req, res) => {
 		const section = await Section.findById(req.params.id);
 
 		if (!section) {
-			return res.status(404).json({ msg: 'Section not found' });
+			return res.json({ msg: 'Section not found' });
 		}
 
 		await section.remove();
@@ -73,7 +73,7 @@ router.put('/update/:id', parser.single('image'), async (req, res) => {
 		const section = await Section.findById(req.params.id);
 
 		if (!section) {
-			return res.status(404).json({ msg: 'section not found' });
+			return res.json({ msg: 'section not found' });
 		}
 
 		const title = req.body.title || section.title;
