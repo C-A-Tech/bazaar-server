@@ -22,7 +22,7 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.json({ msg: errors.array() }).status(400);
+			return res.json({ msg: errors.array() });
 		}
 
 		const image = req.file.path;
@@ -37,7 +37,7 @@ router.post(
 			await stall.save();
 			res.json({ msg: 'Stall created' });
 		} catch (err) {
-			res.status(400).json({ msg: `${err.keyValue.name} already exists` });
+			return res.json({ msg: 'This stall already exists' });
 		}
 	}
 );

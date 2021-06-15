@@ -31,7 +31,7 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.json({ msg: errors.array() }).status(400);
+			return res.status(400).json({ msg: errors.array() });
 		}
 		const { first_name, last_name, email, password, dob } = req.body;
 
@@ -53,8 +53,9 @@ router.post(
 			res.send({ msg: 'user has been saved successfully' });
 		} catch (err) {
 			return res
+				.status(400)
 				.json({ msg: `${err.keyValue.email} already exists` })
-				.status(400);
+				
 		}
 	}
 );
@@ -65,7 +66,7 @@ router.post('/login', async (req, res) => {
 	if (user && bcrypt.compareSync(req.body.password, user.password)) {
 		res.json(user);
 	} else {
-		res.json({ msg: 'Invalid email or Password' }).status(400);
+		res.status(400).json({ msg: 'Invalid email or Password' });
 	}
 });
 
