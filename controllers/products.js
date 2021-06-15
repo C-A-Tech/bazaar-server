@@ -15,7 +15,8 @@ router.post(
 	parser.array('image'),
 	[
 		check('name', 'name required').not().isEmpty(),
-		// check('description', 'description required').not().isEmpty(),
+		check('description', 'description required').not().isEmpty(),
+		check('price', 'price required').not().isEmpty(),
 		check('user', 'user id required').not().isEmpty(),
 		check('section', 'section id required').not().isEmpty(),
 		check('stall', 'stall id required').not().isEmpty()
@@ -24,7 +25,7 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res.json({ msg: errors.array() }).status(400);
+			return res.json({ msg: errors.array() });
 		}
 		const images = []
 		req.files.forEach(file => images.push(file.path));
@@ -42,7 +43,7 @@ router.post(
 			await product.save();
 			res.json({ msg: 'product created' });
 		} catch (err) {
-			res.status(400).json({ msg: `${err.keyValue.name} already exists` });
+			res.status(400).json({ msg: 'This product already exists' });
 		}
 	}
 );
