@@ -95,7 +95,7 @@ router.delete('/delete/:id', async (req, res) => {
 		const stall = await Stall.findById(req.params.id);
 
 		if (!stall) {
-			return res.status(404).json({ msg: 'stall not found' });
+			return res.json({ msg: 'stall not found' });
 		}
 
 		await stall.remove();
@@ -113,7 +113,7 @@ router.put('/update/:id', parser.single('image'), async (req, res) => {
 		const stall = await Stall.findById(req.params.id);
 
 		if (!stall) {
-			return res.status(404).json({ msg: 'stall not found' });
+			return res.json({ msg: 'stall not found' });
 		}
 
 		const name = req.body.name || stall.name;

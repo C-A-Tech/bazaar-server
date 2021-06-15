@@ -52,10 +52,7 @@ router.post(
 			await user.save();
 			res.send({ msg: 'user has been saved successfully' });
 		} catch (err) {
-			return res
-				.status(400)
-				.json({ msg: `${err.keyValue.email} already exists` })
-				
+			return res.json({ msg: `${err.keyValue.email} already exists` });
 		}
 	}
 );
@@ -64,9 +61,9 @@ router.post('/login', async (req, res) => {
 	const user = await User.findOne({ email: req.body.email });
 	// validate the password of the account against the given password.
 	if (user && bcrypt.compareSync(req.body.password, user.password)) {
-		res.json(user);
+		return res.json(user);
 	} else {
-		res.status(400).json({ msg: 'Invalid email or Password' });
+		return res.json({ msg: 'Invalid email or Password' });
 	}
 });
 
@@ -75,7 +72,7 @@ router.delete('/delete/:id', async (req, res) => {
 		const user = await User.findById(req.params.id);
 
 		if (!user) {
-			return res.status(404).json({ msg: 'user not found' });
+			return res.json({ msg: 'user not found' });
 		}
 
 		await user.remove();
@@ -93,7 +90,7 @@ router.put('/update/:id', parser.single('image'), async (req, res) => {
 		const user = await User.findById(req.params.id);
 
 		if (!user) {
-			return res.status(404).json({ msg: 'user not found' });
+			return res.json({ msg: 'user not found' });
 		}
 
 		const first_name = req.body.first_name || user.first_name;

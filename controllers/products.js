@@ -41,9 +41,9 @@ router.post(
 		});
 		try {
 			await product.save();
-			res.json({ msg: 'product created' });
+			return res.json({ msg: 'product created' });
 		} catch (err) {
-			res.status(400).json({ msg: 'This product already exists' });
+			return res.json({ msg: 'This product already exists' });
 		}
 	}
 );
@@ -119,7 +119,7 @@ router.put('/update/:id', parser.single('image'), async (req, res) => {
 		const product = await Product.findById(req.params.id);
 
 		if (!product) {
-			return res.status(404).json({ msg: 'product not found' });
+			return res.json({ msg: 'product not found' });
 		}
 
 		const name = req.body.name || product.name;
