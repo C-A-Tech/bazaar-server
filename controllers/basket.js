@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator/check');
 
 const Basket = require('../models/Basket');
 
@@ -33,8 +32,8 @@ router.post("/add", async (req, res) => {
         basket.products[itemIndex] = productItem;
         basket.total = calculateTotal(basket.products)
       } else {
-        let total = calculateTotal(basket.products)
-        basket.products.push({ productId, quantity, name, price, total });
+        basket.total = calculateTotal(basket.products)
+        basket.products.push({ productId, quantity, name, price });
       }
       basket = await basket.save();
       return res.json(basket);
@@ -56,7 +55,7 @@ router.post("/add", async (req, res) => {
   }
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete', async (req, res) => {
 	try {
     const user = req.body.user
     const basket = await Basket.findOne({ user });
