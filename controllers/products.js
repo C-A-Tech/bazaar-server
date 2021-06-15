@@ -36,7 +36,7 @@ router.post(
 			section: req.body.section,
 			stall: req.body.stall,
 			price: req.body.price,
-			image
+			images
 		});
 		try {
 			await product.save();
