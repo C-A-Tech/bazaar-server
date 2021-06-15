@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 
 router.post(
 	'/create',
-	parser.single('image'),
+	parser.array('image'),
 	[
 		check('name', 'name required').not().isEmpty(),
 		// check('description', 'description required').not().isEmpty(),
@@ -26,8 +26,8 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.json({ msg: errors.array() }).status(400);
 		}
-
-		const image = req.file.path;
+		const images = []
+		req.files.forEach(file => images.push(file.path));
 
 		const product = new Product({
 			name: req.body.name,
@@ -36,7 +36,7 @@ router.post(
 			section: req.body.section,
 			stall: req.body.stall,
 			price: req.body.price,
-			images
+			image: images
 		});
 		try {
 			await product.save();
