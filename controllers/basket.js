@@ -9,7 +9,15 @@ const calculateTotal = (products) => {
   products.forEach(product => total += product.quantity * product.price)
   return total
 }
-
+router.get('/', async (req, res) => {
+  try{
+    const user = req.body.user
+    let basket = await Basket.findOne({ user });
+    res.json(basket)
+  } catch(err){
+    res.status(500).send("Server error");
+  }
+})
 router.post("/add", async (req, res) => {
   const { productId, quantity, name, user, price } = req.body;
   try {
@@ -32,7 +40,8 @@ router.post("/add", async (req, res) => {
       return res.json(basket);
     } else {
       //no basket for user, create new basket
-      let total = calculateTotal(basket.products)
+
+      let total = quantity * price
       const newBasket = await Basket.create({
         user,
         products: [{ productId, quantity, name, price }],
