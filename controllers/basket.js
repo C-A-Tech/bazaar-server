@@ -56,4 +56,23 @@ router.post("/add", async (req, res) => {
   }
 });
 
+router.delete('/delete/:id', async (req, res) => {
+	try {
+    const user = req.body.user
+    const basket = await Basket.findOne({ user });
+    console.log(basket)
+
+		if (!basket) {
+			return res.status(404).json({ msg: 'basket not found' });
+		}
+
+		await basket.remove();
+
+		res.json({ msg: 'Basket emptied' });
+	} catch (err) {
+		console.error(err.message);
+
+		res.status(500).send('Server Error');
+	}
+});
 module.exports = router;
