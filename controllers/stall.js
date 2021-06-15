@@ -58,6 +58,22 @@ router.get('/user/:user_id', async ({ params: { user_id } }, res) => {
 	}
 });
 
+router.get('/stall/:stall_id', async ({ params: { stall_id } }, res) => {
+	try {
+		const stalls = await Stall.find({
+			_id: stall_id
+		});
+		if (!stalls.length) {
+			return res.json({ msg: 'No stalls' });
+		}
+
+		return res.json(stalls);
+	} catch (err) {
+		console.error(err.message);
+		return res.status(500).json({ msg: 'Server error' });
+	}
+});
+
 router.get('/section/:section_id', async ({ params: { section_id } }, res) => {
 	try {
 		const stalls = await Stall.find({
@@ -100,8 +116,8 @@ router.put('/update/:id', parser.single('image'), async (req, res) => {
 			return res.status(404).json({ msg: 'stall not found' });
 		}
 
-		const name = req.body.name || stall.name
-		const image = req.file ? req.file.path : stall.image
+		const name = req.body.name || stall.name;
+		const image = req.file ? req.file.path : stall.image;
 
 		await Stall.findByIdAndUpdate(req.params.id, {
 			name: name,
