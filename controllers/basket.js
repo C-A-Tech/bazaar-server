@@ -55,10 +55,10 @@ router.post("/add", async (req, res) => {
   }
 });
 
-router.delete('/delete', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
 	try {
-    const user = req.body.user
-    const basket = await Basket.findOne({ user });
+    const basketId = req.params.id
+    const basket = await Basket.findById(basketId);
     console.log(basket)
 
 		if (!basket) {
