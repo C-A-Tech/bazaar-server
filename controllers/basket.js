@@ -8,7 +8,7 @@ const calculateTotal = (products) => {
   products.forEach(product => total += product.quantity * product.price)
   return total
 }
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   try{
     const user = req.body.user
     let basket = await Basket.findOne({ user });

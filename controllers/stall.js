@@ -44,7 +44,7 @@ router.post(
 
 router.get('/user/:user_id', async ({ params: { user_id } }, res) => {
 	try {
-		const stalls = await Stall.find({
+		const stalls = await Stall.findOne({
 			user: user_id
 		});
 		if (!stalls.length) {
