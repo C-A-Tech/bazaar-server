@@ -12,7 +12,10 @@ router.post('/', async (req, res) => {
   try{
     const user = req.body.user
     let basket = await Basket.findOne({ user });
-    res.json(basket)
+    if(!basket.length){
+      res.json(basket)
+    }
+    
   } catch(err){
     res.status(500).send("Server error");
   }
