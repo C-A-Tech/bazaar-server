@@ -42,10 +42,10 @@ router.post(
 	}
 );
 
-router.get('/user/:user_id', async ({ params: { user_id } }, res) => {
+router.get('/user/:user_id', async (req, res) => {
 	try {
-		const stalls = await Stall.findOne({
-			user: user_id
+		const stalls = await Stall.find({
+			user: req.params.user_id
 		});
 		if (!stalls.length) {
 			return res.json({ msg: 'No stalls' });
