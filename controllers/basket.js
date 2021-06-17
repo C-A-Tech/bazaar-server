@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
     }
     
   } catch(err){
-    res.status(500).send("Server error");
+    return res.send("Server error");
   }
 })
 router.post("/add", async (req, res) => {
@@ -54,7 +54,7 @@ router.post("/add", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(500).send("Server error");
+    return res.send("Server error");
   }
 });
 
@@ -74,7 +74,7 @@ router.delete('/delete/:id', async (req, res) => {
 	} catch (err) {
 		console.error(err.message);
 
-		res.status(500).send('Server Error');
+		return res.send('Server Error');
 	}
 });
 
@@ -97,7 +97,7 @@ router.put('/removeItem', async (req, res) => {
 	} catch (err) {
 		console.error(err.message);
 
-		res.status(500).send('Server Error');
+		return res.send('Server Error');
   }
 });
 module.exports = router;
